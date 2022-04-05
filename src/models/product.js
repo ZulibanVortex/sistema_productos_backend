@@ -33,7 +33,6 @@ Producto.findById = (productId, result) => {
             result(null, res[0]);
             return;
         }
-
         // producto no encontrado con el id
         result({ kind: "No_Encontrado" }, null);
     });
@@ -78,6 +77,24 @@ Producto.updateById = (idProducto, producto, result) => {
             }
 
             result(null, { id: idProducto, ...producto });
+        }
+    );
+};
+
+Producto.updateImageById = (idProducto, nameImage, result) => {
+    sql.query(
+        "UPDATE ps_products SET imagen = ? WHERE id = ?", [nameImage, idProducto],
+        (err, res) => {
+            if (err) {
+                result(null, err);
+                return;
+            }
+            if (res.affectedRows == 0) {
+                result({ kind: "No_Encontrado" }, null);
+                return;
+            }
+
+            result(null, { id: idProducto, imagen: nameImage });
         }
     );
 };

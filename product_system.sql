@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-04-2022 a las 23:01:28
+-- Tiempo de generación: 04-04-2022 a las 22:27:55
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.6
 
@@ -64,13 +64,6 @@ CREATE TABLE `ps_products` (
   `imagen` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `ps_products`
---
-
-INSERT INTO `ps_products` (`id`, `nombre`, `precio`, `cantidad`, `observaciones`, `imagen`) VALUES
-(9, 'Impresora HP', '456000', 1, 'Le falta todo', '');
-
 -- --------------------------------------------------------
 
 --
@@ -83,16 +76,6 @@ CREATE TABLE `ps_product_cities` (
   `id_city` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `ps_product_cities`
---
-
-INSERT INTO `ps_product_cities` (`id`, `id_product`, `id_city`) VALUES
-(21, 9, 2),
-(22, 9, 4),
-(23, 9, 3),
-(24, 9, 7);
-
 -- --------------------------------------------------------
 
 --
@@ -104,15 +87,6 @@ CREATE TABLE `ps_users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `ps_users`
---
-
-INSERT INTO `ps_users` (`id`, `email`, `password`) VALUES
-(1, 'prueba1@gmail.com', '$2b$10$BeWtVitkOWhsgH6MOT17UetWlDATZFx6yL57Oh.slPSSz8RLZByIS'),
-(5, 'prueba2@gmail.com', '$2b$10$noQFgwjnoYGyzl/veO7MteINs.UkY0VDVmlbpIHlWmqVIU7rYdTSW'),
-(6, 'prueba3@gmail.com', '$2b$10$s5PD1rcwzoSHE2eOhlGkgelQj4zphw7HP/IVvsAcdBhACTP21TMIm');
 
 --
 -- Índices para tablas volcadas
@@ -159,19 +133,19 @@ ALTER TABLE `ps_cities`
 -- AUTO_INCREMENT de la tabla `ps_products`
 --
 ALTER TABLE `ps_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ps_product_cities`
 --
 ALTER TABLE `ps_product_cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ps_users`
 --
 ALTER TABLE `ps_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

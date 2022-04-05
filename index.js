@@ -6,8 +6,13 @@ const bodyParser = require("body-parser");
 const app = express();
 const http = require('http').Server(app);
 const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
 const configServe = require('./src/config/config')
 const PORT = configServe().port;
+
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 const routes = require('./src/routes/index');
 

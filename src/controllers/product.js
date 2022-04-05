@@ -1,8 +1,5 @@
 const Producto = require('../models/product');
 const Ciudad = require('../models/cities');
-const multer = require('multer');
-
-
 
 module.exports.findAll = async function(req, res) {
     Producto.getAll(async (err, productos) => {
@@ -101,7 +98,7 @@ exports.create = (req, res) => {
     });
 }
 
- exports.update = (req, res) => {
+exports.update = (req, res) => {
     const id = req.params.productId;
     const { nombre, precio, cantidad, observaciones } = req.body;
     const productUpdate = new Producto ({
@@ -136,4 +133,44 @@ exports.create = (req, res) => {
 
         }
     );
- };
+};
+
+exports.upload = (req, res) => {
+    const EDFile = req.files.file;
+    const id = req.params.productId;
+    const ext = EDFile.name.split('.').pop();
+    const nameImage = id + '.' + ext;
+    EDFile.mv(`./uploads/${id}.${ext}`,err => {
+        if(err) {
+            return res.status(500).send({
+                ok: false,
+                mensaje: 'Error al intertar subir la imagen del producto',
+                errors: err
+            });
+        } else {
+            Producto.updateImageById(
+                id, nameImage,
+                (err, productImage) => {
+                    if (err) {
+                        if (err.kind === "No_Encontrado") {
+                            return res.status(400).send({
+                                ok: false,
+                                mensaje: `producto no encontrado con el id: ${id}.`,
+                                errors: { message: 'No existe un producto con ese Id' }
+                            });
+                        } else {
+                            return res.status(500).send({
+                                ok: false,
+                                message: "Error al retornar producto con el id: " + id,
+                                errors: err
+                            });
+                        }
+                    }
+                    res.status(200).json({
+                        ok: true,
+                        imagen: productImage
+                    });
+                });
+        }
+    });
+}
